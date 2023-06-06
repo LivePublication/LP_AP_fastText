@@ -1,0 +1,1 @@
+method_resources/computation_docker/model.lid.top800.epoch20.neg100.dim100.ns.small.min5.ftz filter=lfs diff=lfs merge=lfs -text
