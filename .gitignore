@@ -40,6 +40,7 @@ Thumbs.db
 #     Venv env       # 
 ######################
 /venv/
+/fastText_venv/
 
 #      Py cache      #
 ######################

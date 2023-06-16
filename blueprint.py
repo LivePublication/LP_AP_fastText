@@ -48,7 +48,7 @@ class ActionProviderInput(BaseModel):
     class Config:
         schema_extra = {
             "input_data": {
-                "input_data": "Lines of text data to be classified."
+                "input_data": "input/input_data.txt"
                 }
             }
 
