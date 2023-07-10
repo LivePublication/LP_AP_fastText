@@ -215,8 +215,7 @@ def run_computation(ap_description: ActionProviderDescription,
             image='computation_image:latest',
             volumes=volumes,
             command=[ap_request.body["input_data"]],
-            detach=True
-)
+            detach=True)
         # wait for the container to finish
         print(container)
         container.wait()
