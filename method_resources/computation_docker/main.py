@@ -3,11 +3,6 @@ import fasttext
 import codecs 
 import sys
 
-# Directory constants
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-INPUT_DIR = os.environ.get("INPUT_DIR", os.path.join(BASE_DIR, "input"))  
-OUTPUT_DIR = os.environ.get("OUTPUT_DIR", os.path.join(BASE_DIR, "output"))
-
 if __name__ == "__main__":
     
     with codecs.open(sys.argv[1], "r", encoding = "utf-8") as f:
@@ -24,7 +19,7 @@ if __name__ == "__main__":
         predictions.append(pred_label)
 
     # write predictions to file
-    with open(f"{OUTPUT_DIR}/fastText_predictions.txt", "w") as f:
+    with open("output/fastText_predictions.txt", "w") as f:
         for pred in predictions:
             # Write prediction to file, and remove __label__ prefix
             f.write(pred[0][0].replace("__label__", "") + "\n")
