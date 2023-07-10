@@ -58,7 +58,7 @@ ActionProviderInput = add_lp_params(ActionProviderInput)
 
 # Configure Action Provider identity
 description = ActionProviderDescription(
-    globus_auth_scope="https://auth.globus.org/scopes/ca022ddb-b17d-4004-b600-4f15354a297c/action_provider_operations",
+    globus_auth_scope="https://auth.globus.org/scopes/1ff4cb73-61dc-404b-994b-679c8e18c36d/action_provider_operations",
     title="fastText",
     admin_contact="ael56@uclive.ac.nz",
     synchronous=True,
