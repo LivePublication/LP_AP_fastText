@@ -29,7 +29,6 @@ funcx==1.0.13
 funcx-common==0.0.25
 future==0.18.3
 galaxy2cwl==0.1.4
-GDAL==3.6.4
 gensim==4.3.1
 gladier==0.8.4
 gladier-tools==0.4.4
