@@ -230,6 +230,12 @@ def run_computation(ap_description: ActionProviderDescription,
         # Remove the container
         container.remove()
 
+        action_status = action_database[ap_status.action_id]
+        action_status.status = ActionStatusValue.SUCCEEDED
+        action_status.completion_time = datetime.now()
+
+    # Complete Action
+
     
 
 
