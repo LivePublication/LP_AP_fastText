@@ -143,6 +143,12 @@ def my_action_run(action_request: ActionRequest, auth: AuthState) -> ActionCallb
     full_request_id = f"{caller_id}:{action_request.request_id}"
     prev_request = request_database.get(full_request_id)
 
+    print("************************************************")
+    print(f'full req: {full_request_id}')
+    print(f'prev req: {prev_request}')
+    print(f'caller_id: {caller_id}')
+    print("************************************************")
+
     if prev_request is not None:
         """
         NOTE: This is needed because the Globus client sends multiple
