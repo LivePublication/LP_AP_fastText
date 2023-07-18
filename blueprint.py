@@ -297,9 +297,8 @@ def my_action_release(action_id: str, auth: AuthState) -> ActionCallbackReturn:
         raise ActionConflict("Cannot release incomplete Action")
 
     action_status.display_status = f"Released by {auth.effective_identity}"
-    # TODO currently dont understand the release mechanic and this might break
-    request_database.pop(action_id)
-    action_database.pop(action_id)
+    # TODO action is not actually release (e.g. removed form backend database)
+
     return action_status
 
 
