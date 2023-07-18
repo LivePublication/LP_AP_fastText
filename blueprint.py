@@ -145,13 +145,6 @@ def my_action_run(action_request: ActionRequest, auth: AuthState) -> ActionCallb
     full_request_id = f"{caller_id}"
     prev_request = request_database.get(full_request_id)
 
-    print("************************************************")
-    print(f'action_request: {action_request.request_id}')
-    print(f'full req: {full_request_id}')
-    print(f'prev req: {prev_request}')
-    print(f'caller_id: {caller_id}')
-    print("************************************************")
-
     if prev_request is not None:
         """
         NOTE: This is needed because the Globus client sends multiple
@@ -239,6 +232,7 @@ def run_computation(ap_description: ActionProviderDescription,
         # Remove the container
         container.remove()
 
+        # Update and re-regester action
         action_status = action_database.get(ap_status.action_id)
         action_status.completion_time=datetime.now(timezone.utc).isoformat()
         action_status.status=ActionStatusValue.SUCCEEDED
@@ -324,8 +318,3 @@ def my_action_log(action_id: str, auth: AuthState) -> ActionLogReturn:
             },
         },
     )
-
-
-# Testing
-# if __name__ == "__main__":
-#     run_computation()
