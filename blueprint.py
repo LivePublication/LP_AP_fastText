@@ -140,7 +140,9 @@ def my_action_run(action_request: ActionRequest, auth: AuthState) -> ActionCallb
 
     # Regester action request to parse out continuing requests
     caller_id = auth.effective_identity
-    full_request_id = f"{caller_id}:{action_request.request_id}"
+    # Modify full request id if multiple requests are able to be 
+    # made simultaniously from the same caller_id
+    full_request_id = f"{caller_id}"
     prev_request = request_database.get(full_request_id)
 
     print("************************************************")
