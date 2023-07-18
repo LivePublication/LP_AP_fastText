@@ -202,6 +202,9 @@ def run_computation(ap_description: ActionProviderDescription,
     # ----------- docker containersation -----------
     # ----------------------------------------------
 
+    # TODO: Currently blocking. Use of threading is undesirable due to its 
+    # constraints in what hardware it can utilise. 
+
     client = docker.from_env()
     # bind constant input/output directories to import and export data 
     # between the external context and the container
