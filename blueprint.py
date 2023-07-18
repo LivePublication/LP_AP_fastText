@@ -144,6 +144,7 @@ def my_action_run(action_request: ActionRequest, auth: AuthState) -> ActionCallb
     prev_request = request_database.get(full_request_id)
 
     print("************************************************")
+    print(f'action_request: {action_request.request_id}')
     print(f'full req: {full_request_id}')
     print(f'prev req: {prev_request}')
     print(f'caller_id: {caller_id}')
@@ -236,14 +237,11 @@ def run_computation(ap_description: ActionProviderDescription,
         # Remove the container
         container.remove()
 
-        action_status = action_database[ap_status.action_id]
-        action_status.status = ActionStatusValue.SUCCEEDED
-        action_status.completion_time = datetime.now()
-
-    # Complete Action
-
-    
-
+        action_status = action_database.get(ap_status.action_id)
+        action_status.completion_time=datetime.now(timezone.utc).isoformat()
+        action_status.status=ActionStatusValue.SUCCEEDED
+        action_status.display_status=ActionStatusValue.SUCCEEDED
+        action_database[ap_status.action_id] = action_status
 
 @aptb.action_status
 def my_action_status(action_id: str, auth: AuthState) -> ActionCallbackReturn:
