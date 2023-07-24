@@ -49,3 +49,5 @@ __pycache__/
 ######################
 config.py
 secondary_config.py
+
+venv/
