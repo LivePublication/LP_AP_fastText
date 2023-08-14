@@ -215,11 +215,16 @@ def run_computation(ap_description: ActionProviderDescription,
 
     try: 
         print("Executing container")
+
+        # Split input_data to get local dir structure
+        input_data_path = ap_request.body["input_data"].split(os.sep)
+        input_data_path = os.sep.join(input_data_path[-2:])
+
         # Image is built and named in app.py
         container = client.containers.run(
             image='computation_image:latest',
             volumes=volumes,
-            command=[ap_request.body["input_data"]],
+            command=input_data_path,
             detach=True)
         # wait for the container to finish
         print(container)
@@ -240,7 +245,15 @@ def run_computation(ap_description: ActionProviderDescription,
         action_status.completion_time=datetime.now(timezone.utc).isoformat()
         action_status.status=ActionStatusValue.SUCCEEDED
         action_status.display_status=ActionStatusValue.SUCCEEDED
+
+        # Get output path, add to details for use in flow definition
+        output_path = os.path.join(os.getcwd(), directory_structure["output"], 'fastText_predictions.txt')
+        action_status.details= {"output_path": output_path}
+        # Update status
         action_database[ap_status.action_id] = action_status
+
+        # Release the action
+        # my_action_release(ap_status.action_id, ap_auth)
 
 @aptb.action_status
 def my_action_status(action_id: str, auth: AuthState) -> ActionCallbackReturn:
@@ -285,16 +298,19 @@ def my_action_release(action_id: str, auth: AuthState) -> ActionCallbackReturn:
     operation removes the ActionStatus object from the data store. The final, up
     to date ActionStatus is returned after a successful release.
     """
-    action_status = action_database.get(action_id)
+
+    action_status = action_database[action_id]
     if action_status is None:
-        raise ActionNotFound(f"No action with {action_id}")
+        raise ActionNotFound(f"No action called from identity {auth.effective_identity}")
 
     authorize_action_management_or_404(action_status, auth)
     if not action_status.is_complete():
         raise ActionConflict("Cannot release incomplete Action")
 
     action_status.display_status = f"Released by {auth.effective_identity}"
-    # TODO action is not actually release (e.g. removed form backend database)
+    # Release the request
+    print(f"Releasing request for action {action_id}")
+    request_database.pop(auth.effective_identity)
 
     return action_status
 
