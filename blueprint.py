@@ -252,8 +252,6 @@ def run_computation(ap_description: ActionProviderDescription,
         # Update status
         action_database[ap_status.action_id] = action_status
 
-        # Release the action
-        # my_action_release(ap_status.action_id, ap_auth)
 
 @aptb.action_status
 def my_action_status(action_id: str, auth: AuthState) -> ActionCallbackReturn:
