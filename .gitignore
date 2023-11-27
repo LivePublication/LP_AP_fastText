@@ -51,3 +51,6 @@ config.py
 secondary_config.py
 
 temp.txt
+crates/
+nohup.out
+venv/
