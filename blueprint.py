@@ -8,7 +8,7 @@ import os
 import sys
 import docker
 
-from lp_ap_tools.lp_ap_tools import LP_artefact, add_lp_params, print_attributes
+from lp_ap_tools.lp_ap_tools import LP_artefact, add_lp_params
 
 from globus_action_provider_tools import (
     ActionProviderDescription,
